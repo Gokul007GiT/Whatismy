@@ -1,12 +1,6 @@
 import Link from 'next/link';
 import { Network, Github, Twitter } from 'lucide-react';
 
-const FOOTER_LINKS = [
-  { href: '/privacy', label: 'Privacy Policy' },
-  { href: '/terms', label: 'Terms of Service' },
-  { href: '/contact', label: 'Contact' },
-];
-
 export function Footer() {
   const year = new Date().getFullYear();
 
@@ -25,18 +19,6 @@ export function Footer() {
               What<span className="text-primary">IsMyIP</span>
             </span>
           </Link>
-
-          <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-            {FOOTER_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
 
           <div className="flex items-center gap-3">
             <a

@@ -48,14 +48,43 @@ interface IpWhoIsResponse {
   message?: string;
 }
 
-async function fetchIPInfo(): Promise<IPInfo> {
-  const res = await fetch('https://ipwho.is/', {
-    headers: { Accept: 'application/json' },
-  });
-  if (!res.ok) throw new Error(`IP lookup failed (${res.status})`);
+interface IpApiCoResponse {
+  ip: string;
+  city: string | null;
+  region: string | null;
+  country_name: string | null;
+  country_code: string | null;
+  timezone: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  org: string | null;
+  asn: string | null;
+  error?: boolean;
+  reason?: string;
+}
+
+async function fetchWithTimeout(
+  url: string,
+  timeoutMs = 8000
+): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, {
+      headers: { Accept: 'application/json' },
+      signal: controller.signal,
+    });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function fetchFromIpWhoIs(): Promise<IPInfo> {
+  const res = await fetchWithTimeout('https://ipwho.is/');
+  if (!res.ok) throw new Error(`ipwho.is failed (${res.status})`);
   const data = (await res.json()) as IpWhoIsResponse;
-  if (!data.success) {
-    throw new Error(data.message || 'IP lookup returned an error');
+  if (!data.success || !data.ip) {
+    throw new Error(data.message || 'ipwho.is returned an error');
   }
   const conn = data.connection;
   return {
@@ -72,6 +101,50 @@ async function fetchIPInfo(): Promise<IPInfo> {
     asn: conn?.asn ? `AS${conn.asn}` : null,
     org: conn?.org ?? null,
   };
+}
+
+async function fetchFromIpApiCo(): Promise<IPInfo> {
+  const res = await fetchWithTimeout('https://ipapi.co/json/');
+  if (!res.ok) throw new Error(`ipapi.co failed (${res.status})`);
+  const data = (await res.json()) as IpApiCoResponse;
+  if (data.error || !data.ip) {
+    throw new Error(data.reason || 'ipapi.co returned an error');
+  }
+  return {
+    ip: data.ip,
+    version: classifyVersion(data.ip),
+    city: data.city,
+    region: data.region,
+    country: data.country_name,
+    countryCode: data.country_code,
+    timezone: data.timezone,
+    latitude: data.latitude,
+    longitude: data.longitude,
+    isp: data.org,
+    asn: data.asn,
+    org: data.org,
+  };
+}
+
+// Try multiple providers in order so a single outage or rate limit doesn't
+// break the page. The first provider that resolves successfully wins.
+async function fetchIPInfo(): Promise<IPInfo> {
+  const providers = [fetchFromIpWhoIs, fetchFromIpApiCo];
+  let lastError: unknown;
+
+  for (const provider of providers) {
+    try {
+      return await provider();
+    } catch (e) {
+      lastError = e;
+    }
+  }
+
+  throw new Error(
+    lastError instanceof Error
+      ? lastError.message
+      : 'Unable to reach any IP lookup provider.'
+  );
 }
 
 function DeviceIcon({ device }: { device: string }) {
