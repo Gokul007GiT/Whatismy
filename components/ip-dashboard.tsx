@@ -188,7 +188,7 @@ export function IPDashboard() {
             <RefreshCw
               className={`h-4 w-4 text-primary ${refreshing ? 'animate-spin-slow' : ''}`}
             />
-            {refreshing ? 'Refreshing…' : 'Refresh detection'}
+            {refreshing ? 'Refreshing…' : 'Refresh'}
           </button>
         </div>
       </div>
