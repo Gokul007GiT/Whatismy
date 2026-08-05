@@ -1,4 +1,4 @@
-'use client';
+/*'use client';
 
 import * as React from 'react';
 import { MapMarker } from '@/components/map-marker';
@@ -111,4 +111,4 @@ export function MapExperience({ children }: { children: React.ReactNode }) {
       {children}
     </MapExperienceContext.Provider>
   );
-}
+}/*
