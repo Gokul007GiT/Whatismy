@@ -10,7 +10,7 @@ const SITE_URL = 'https://whatismyip.example.com';
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'What Is My IP Address? | Fast IP Lookup Tool',
+    default: 'What Is My IP',
     template: '%s | What Is My IP',
   },
   description:
