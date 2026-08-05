@@ -1,6 +1,7 @@
 <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-  <stop offset="0%" stop-color="#1D4ED8"/>
-  <stop offset="35%" stop-color="#2563EB"/>
-  <stop offset="70%" stop-color="#3B82F6"/>
-  <stop offset="100%" stop-color="#60A5FA"/>
+  <stop offset="0%" stop-color="#2563EB"/>
+  <stop offset="25%" stop-color="#3B82F6"/>
+  <stop offset="50%" stop-color="#06B6D4"/>
+  <stop offset="75%" stop-color="#14B8A6"/>
+  <stop offset="100%" stop-color="#22C55E"/>
 </linearGradient>
