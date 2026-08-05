@@ -99,7 +99,7 @@ function IPBlock({
 
       <div className="flex flex-1 items-center px-5 pb-6 pt-3">
         {present ? (
-          <p className="select-all break-all font-mono text-xl font-bold tracking-tight text-foreground sm:text-2xl md:text-[28px] md:leading-tight">
+          <p className="select-all break-all font-mono text-2xl font-semibold tracking-tight text-foreground sm:text-3xl md:text-[34px] md:leading-tight">
             {address}
           </p>
         ) : (
