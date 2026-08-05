@@ -148,7 +148,7 @@ export function IPDashboard() {
         <div className="mb-7 flex flex-col items-center gap-2 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-black/5 bg-white/70 px-4 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur-md shadow-premium">
             <span className="relative flex h-2 w-2">
-              <span className="live-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
+              <span className="live-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
             </span>
             Active
