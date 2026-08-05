@@ -157,7 +157,7 @@ export function IPDashboard() {
             Your Public IP Address
           </h1>
           <p className="max-w-md text-sm text-muted-foreground">
-  Your public IP, network, and connection details—all in one place.
+ Discover your IP and connection details instantly.
           </p>
         </div>
 
