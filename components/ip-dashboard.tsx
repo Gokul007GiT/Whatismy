@@ -151,14 +151,13 @@ export function IPDashboard() {
               <span className="live-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
             </span>
-            Live connection detected
+            Active
           </div>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Your Public IP Address
           </h1>
           <p className="max-w-md text-sm text-muted-foreground">
-            The addresses your device uses to reach the internet. Refresh to
-            re-detect and watch your location appear on the map.
+  Your public IP, network, and connection details—all in one place.
           </p>
         </div>
 
